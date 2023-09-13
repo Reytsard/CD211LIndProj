@@ -1,10 +1,14 @@
-package prelims;
+package Assignments;
+
+import prelims.ListOverflowException;
+import prelims.MyList;
+import prelims.Node;
 
 import java.util.NoSuchElementException;
 
-public class MySinglyLinkedList<T> implements MyList<T> {
-
+public class SinglyLinkedList<T> implements MyList<T> {
     private Node<T> head = null;
+    private Node<T> tail = null;
 
     public void displayInfos(){
         Node<T> currNode = head;
@@ -46,16 +50,44 @@ public class MySinglyLinkedList<T> implements MyList<T> {
     }
 
     @Override
-    public void insert(T data) throws ListOverflowException {
-        if(head == null){
-            head = new Node<T>(data);
-        }else{
+    public void insert(T data) throws ListOverflowException { //inserts lexicographically
+            Node<T> newNode = new Node<>(data);
             Node<T> currNode = head;
-            while(currNode.getLink() != null){
-                currNode = currNode.getLink();
+            Node<T> prevNode = null;
+            System.out.println("current Node: " + currNode.getInfo());
+            System.out.println("new Node: " + newNode.getInfo());
+            System.out.println(currNode.getInfo().toString().compareToIgnoreCase(newNode.getInfo().toString()));
+            if(currNode.getInfo() == null){
+                if(head == null){
+                    head = new Node<T>(data);
+                }else{
+                    while(currNode.getLink() != null){
+                        currNode = currNode.getLink();
+                    }
+                    currNode.setLink(new Node<T>(data));
+                }
+            }else if (currNode.getInfo().toString().compareTo(newNode.getInfo().toString()) > 0) {//if data is in the first node
+                newNode.setLink(currNode);
+                head = newNode;
+            }else if(currNode.getInfo().toString().compareTo(newNode.getInfo().toString()) < 0 && currNode.getLink() != null){
+                while(currNode.getInfo().toString().compareTo(newNode.getInfo().toString()) < 0){
+                    prevNode = currNode;
+                    currNode = currNode.getLink();
+                }
+                newNode.setLink(currNode);
+                prevNode.setLink(newNode);
+                System.out.println("prev: "+prevNode.getInfo());
+                System.out.println("curr: "+currNode.getInfo());
+            }else{
+                if(head == null){
+                    head = new Node<T>(data);
+                }else{
+                    while(currNode.getLink() != null){
+                        currNode = currNode.getLink();
+                    }
+                    currNode.setLink(new Node<T>(data));
+                }
             }
-            currNode.setLink(new Node<T>(data));
-        }
     }
 
     @Override
@@ -93,5 +125,4 @@ public class MySinglyLinkedList<T> implements MyList<T> {
         }
         return count;
     }
-
 }
