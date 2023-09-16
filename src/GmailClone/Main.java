@@ -4,9 +4,12 @@ import java.util.Scanner;
 
 public class Main {
     public static Scanner input = new Scanner(System.in);
+    public static Users<SinglyLinkedList<String>> emailsAndPasswords = new Users<>();
+    public static boolean isLoggedIn = false;
+
+
     public static void main(String[] args) {
         boolean using = true;
-        boolean isLoggedIn = false;
         int optionSelected;
         do {
             if(isLoggedIn){
@@ -19,9 +22,13 @@ public class Main {
                 optionSelected = input.nextInt();
                 switch (optionSelected){
                     case 1:
-//                        showLogInForm();
+                        showLogInForm();
                         break;
                     case 2:
+                        break;
+                    case 3:
+                        System.out.println("Thank you for using the program.");
+                        System.exit(0);
                         break;
                     default:
                         System.out.println("get rekt");
@@ -29,11 +36,22 @@ public class Main {
 
             }
         }while(using);
-//        do{
-//            System.out.println("================================");
-//            System.out.println("Welcome to data Structures Gmail!");
-//            System.out.println("Select an Option:");
-//            System.out.println("1.Create an Email\n2.View Inbox\n3.View Drafts");
-//        }while(isLoggedIn);
+    }
+
+    public static void showLogInForm(){
+        String userName;
+        String password;
+        System.out.println("============================");
+        System.out.println("Login");
+        System.out.print("Username: ");
+        userName = input.next();
+        System.out.println();
+        System.out.print("Password: ");
+        password = input.next();
+        isLoggedIn = emailsAndPasswords.authenticateUserNameAndPassword(userName,password);
+        //authenticateUserNameAndPassword(userName,password);
+        /** remove after */
+        System.out.println(userName);
+        System.out.println(password);
     }
 }

@@ -8,12 +8,12 @@ public class LecAss1 {
     public static void main(String[] args) {
         SinglyLinkedList<String> list = new SinglyLinkedList<>();
         try {
-            list.insert("apple");
             list.insert("banana");
-            list.insert("pear");
-//            list.insertLexi("ant");
-            list.insert("orange");
-            list.insert("zebra");
+//            list.insert("apple");
+            list.insert("cat");
+//            list.insert("pear");
+//            list.insert("orange");
+//            list.insert("zebra");
         } catch (ListOverflowException e) {
             System.out.println("Error" + e);
         }

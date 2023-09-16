@@ -54,41 +54,69 @@ public class SinglyLinkedList<T> implements MyList<T> {
             Node<T> newNode = new Node<>(data);
             Node<T> currNode = head;
             Node<T> prevNode = null;
-            System.out.println("current Node: " + currNode.getInfo());
-            System.out.println("new Node: " + newNode.getInfo());
-            System.out.println(currNode.getInfo().toString().compareToIgnoreCase(newNode.getInfo().toString()));
-            if(currNode.getInfo() == null){
-                if(head == null){
-                    head = new Node<T>(data);
-                }else{
-                    while(currNode.getLink() != null){
-                        currNode = currNode.getLink();
-                    }
-                    currNode.setLink(new Node<T>(data));
-                }
-            }else if (currNode.getInfo().toString().compareTo(newNode.getInfo().toString()) > 0) {//if data is in the first node
-                newNode.setLink(currNode);
-                head = newNode;
-            }else if(currNode.getInfo().toString().compareTo(newNode.getInfo().toString()) < 0 && currNode.getLink() != null){
-                while(currNode.getInfo().toString().compareTo(newNode.getInfo().toString()) < 0){
-                    prevNode = currNode;
-                    currNode = currNode.getLink();
-                }
-                newNode.setLink(currNode);
-                prevNode.setLink(newNode);
-                System.out.println("prev: "+prevNode.getInfo());
-                System.out.println("curr: "+currNode.getInfo());
-            }else{
-                if(head == null){
-                    head = new Node<T>(data);
-                }else{
-                    while(currNode.getLink() != null){
-                        currNode = currNode.getLink();
-                    }
-                    currNode.setLink(new Node<T>(data));
-                }
+            if(currNode == null){
+                head = new Node<T>(data);
             }
+
+            while(currNode != null && currNode.getInfo().toString().compareToIgnoreCase(newNode.getInfo().toString()) < 0){
+                prevNode = currNode;
+                currNode = currNode.getLink();
+                System.out.println();
+                System.out.println(prevNode.getInfo());
+//                System.out.println(currNode.getInfo());
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//            else if(currNode.getLink() == null && currNode.getInfo().toString().compareToIgnoreCase(newNode.getInfo().toString()) < 0){
+//                System.out.println("newNode: "+ newNode.getInfo());
+//                System.out.println("currNode: "+ currNode.getInfo());
+//                currNode.setLink(newNode);
+////                while(currNode.getLink() != null && currNode.getInfo().toString().compareToIgnoreCase(newNode.getInfo().toString()) < 0){
+////                    prevNode = currNode;
+////                    currNode = currNode.getLink();
+////                    System.out.println(prevNode.getInfo());
+////                    System.out.println(currNode.getInfo());
+////                }
+////                currNode.setLink(new Node<T>(data));
+//            } else if (currNode.getLink() != null && currNode.getInfo().toString().compareToIgnoreCase(newNode.getInfo().toString()) < 0) {
+//
+//            }
     }
+
+    /**
+     * if (currNode.getInfo().toString().compareTo(newNode.getInfo().toString()) > 0) {//if data is will be at the front
+     *                     newNode.setLink(currNode);
+     *                     head = newNode;
+     *                 }else if(currNode.getInfo().toString().compareToIgnoreCase(newNode.getInfo().toString()) < 0){
+     *                     try{
+     *                         while(currNode.getInfo().toString().compareToIgnoreCase(newNode.getInfo().toString()) < 0){
+     *
+     *                             prevNode = currNode;
+     *                             currNode = currNode.getLink();
+     *                         }
+     *                         newNode.setLink(currNode);
+     *                         prevNode.setLink(newNode);
+     *                     }catch (NullPointerException e){
+     *                         System.out.println("Error: "+ e);
+     *                     }
+     *                 }else{ */
 
     @Override
     public T getElement(T data) throws NoSuchElementException {
