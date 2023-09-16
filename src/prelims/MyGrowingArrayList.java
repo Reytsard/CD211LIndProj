@@ -62,7 +62,7 @@ public class MyGrowingArrayList<T> implements MyList<T>{
             System.out.println("not in system");
             return false;
         }
-        System.out.println(this.items[index] + "has been removed");
+        System.out.println(this.items[index] + " has been removed");
         this.items[index] = null;
         return true;
     }
@@ -70,7 +70,7 @@ public class MyGrowingArrayList<T> implements MyList<T>{
     @Override
     public int search(T data) {
         for (int i = 0; i < this.items.length; i++) {
-            if(this.items[i] == data){
+            if(this.items[i].toString().equalsIgnoreCase(data.toString())){
                 return i;
             }
         }

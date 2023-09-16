@@ -7,32 +7,38 @@ public class MySinglyLinkedList<T> implements MyList<T> {
     private Node<T> head = null;
 
     public void displayInfos(){
-        Node<T> currNode = head;
-        while(currNode.getLink() != null){
-            System.out.println(currNode.getInfo());
-            currNode = currNode.getLink();
+        if(head == null){
+            System.out.println("List Empty");
+        }else{
+            Node<T> currNode = head;
+            int count = 1;
+            while(currNode.getLink() != null){
+                System.out.println(count + ". " + currNode.getInfo());
+                currNode = currNode.getLink();
+                count++;
+            }
+            System.out.println(count + ". " + currNode.getInfo());
         }
-        System.out.println(currNode.getInfo());
+
     }
-    public void deleteNode(T data){
+    private void deleteNode(T data){
         Node<T> currNode = head;
         Node<T> prevNode = null;
         if(currNode.getInfo() == data){//if data is in the first node
             head = currNode.getLink();
         }else{
             //using while loop to get the previous data and the next node
-            while(currNode.getInfo() != data){
+            while(currNode != null && currNode.getInfo() != data){
                 prevNode = currNode;
                 currNode = currNode.getLink();
             }
-            if(currNode.getInfo() == data && currNode.getLink() != null){
+            if(currNode != null && currNode.getInfo() == data && currNode.getLink() != null){
                 prevNode.setLink(currNode.getLink()); //if data is at the middle
-            }else if(currNode.getInfo() == data && currNode.getLink() == null){
+            }else if(currNode != null && currNode.getInfo() == data && currNode.getLink() == null){
                 prevNode.setLink(null); // if data is at the last node
-            }else{
-
             }
         }
+        //fix deletion of a node
     }
     @Override
     public int getSize() {
@@ -46,7 +52,7 @@ public class MySinglyLinkedList<T> implements MyList<T> {
     }
 
     @Override
-    public void insert(T data) throws ListOverflowException {
+    public void insert(T data) {
         if(head == null){
             head = new Node<T>(data);
         }else{
@@ -69,28 +75,30 @@ public class MySinglyLinkedList<T> implements MyList<T> {
 
     @Override
     public boolean delete(T data) {
-        //retirm true if item has been deleted else false
-        //use class method to
         if(search(data) == -1){
             return false;
         }
         deleteNode(data);
-        //change or clear pointer here
         return true;
     }
 
     @Override
     public int search(T data) {
-        int count = 1;
-        Node<T> currNode = head;
-        while(currNode.getInfo() != data){
-            currNode = currNode.getLink();
-            count++;
+        int count = 0;
+        if(head == null){
+            return -1;
+        }else{
+            Node<T> currNode = head;
+            while(currNode != null && currNode.getInfo() != data){
+                currNode = currNode.getLink();
+                count++;
+            }
+
+            if(currNode != null && currNode.getLink() == null && currNode.getInfo() != data){
+                return -1;
+            }
         }
 
-        if(currNode.getLink() == null && currNode.getInfo() != data){
-            return -1;
-        }
         return count;
     }
 

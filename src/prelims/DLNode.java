@@ -4,6 +4,7 @@ public class DLNode<T> {
     private DLNode<T> prevNode;
     private DLNode<T> nextNode;
     private T info;
+
     public DLNode(){
         this.prevNode = null;
         this.nextNode = null;
@@ -36,4 +37,10 @@ public class DLNode<T> {
         this.nextNode = nextNode;
     }
 
+    public T getInfo(){
+        return this.info;
+    }
+    public void setInfo(T data){
+        this.info = data;
+    }
 }

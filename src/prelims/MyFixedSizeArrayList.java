@@ -10,13 +10,6 @@ public class MyFixedSizeArrayList<T> implements MyList<T> {
         // other statements may be here
         items = (T[])(new Object[maximum]);
     }
-    public void populateArray(T name, T age, T modelNumber, T color, T status){
-        items[0] = name;
-        items[1] = age;
-        items[2] = modelNumber;
-        items[3] = color;
-        items[4] = status;
-    }
     public void setName(T name){
         items[0] = name;
     }
