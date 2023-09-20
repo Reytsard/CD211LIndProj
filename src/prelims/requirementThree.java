@@ -4,46 +4,55 @@ import java.util.Scanner;
 
 public class requirementThree {
     public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-        MySinglyLinkedList<String> SLL = new MySinglyLinkedList<>();
-        boolean isUsing = true;
-        System.out.println("===========================================");
-        System.out.println("Welcome to To-do-List Program");
-        do {
+        MySinglyLinkedList<String> todoList = new MySinglyLinkedList<>();
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
             System.out.println();
-            System.out.println("Select from the options");
-            System.out.println();
-            System.out.println("1. View To-do List");
-            System.out.println("2. Add a To-do");
-            System.out.println("3. Delete a To-do");
+            System.out.println("==============================================");
+            System.out.println("Todo List Menu:");
+            System.out.println("1. Add a todo item");
+            System.out.println("2. Display all todo items");
+            System.out.println("3. Delete a todo item");
             System.out.println("4. Exit");
-            System.out.print("Selected Option: ");
-            int a =input.nextInt();
-            input.nextLine();
+            System.out.print("Enter your choice: ");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
             System.out.println();
-            switch(a){
+
+            switch (choice) {
                 case 1:
-                    SLL.displayInfos();
+                    System.out.print("Enter a todo item: ");
+                    String todoItem = scanner.nextLine();
+                    todoList.insert(todoItem);
+                    System.out.println("Todo item added to the list.");
                     break;
+
                 case 2:
-                    System.out.println("Input new To-do-List");
-                    String newToDo = input.nextLine();
-                        SLL.insert(newToDo+"");
+                    System.out.println("Todo items:");
+                    todoList.displayInfos();
                     break;
+
                 case 3:
-                    SLL.displayInfos();
-                    System.out.println();
-                    System.out.println("What do you want to remove? input whole to do");
-                    String toRemove = input.nextLine();
-                    SLL.delete(toRemove);
+                    System.out.print("Enter the todo item to delete: ");
+                    String itemToDelete = scanner.nextLine();
+                    boolean deleted = todoList.delete(itemToDelete);
+                    if (deleted) {
+                        System.out.println("Todo item deleted.");
+                    } else {
+                        System.out.println("Todo item not found.");
+                    }
                     break;
+
                 case 4:
-                    System.out.println("Thank you for using the program");
-                    isUsing = false;
-                    break;
+                    System.out.println("Exiting the program. Goodbye!");
+                    System.exit(0);
+
                 default:
-                    System.out.println("Invalid input! Select from 1-3 only");
+                    System.out.println("Invalid choice. Please try again.");
+                    break;
             }
-        }while(isUsing);
+        }
     }
 }

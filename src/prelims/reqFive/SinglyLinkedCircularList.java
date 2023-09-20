@@ -1,25 +1,29 @@
-package prelims;
+package prelims.reqFive;
+
+import prelims.Node;
 
 import java.util.NoSuchElementException;
 
-public class SinglyLinkedCircularList<T> implements MyList<T>{
+public class SinglyLinkedCircularList<T> {
     private Node<T> head = null;
-    public void displayInfos(){
+
+    public void displayInfos() {
         Node<T> currNode = head;
-        while(currNode.getLink() != head){
+        while (currNode.getLink() != head) {
             System.out.println(currNode.getInfo());
             currNode = currNode.getLink();
         }
         System.out.println(currNode.getInfo());
     }
+
     public int getSize() {
         int count = 0;
-        if(head == null){
+        if (head == null) {
             return 0;
-        }else{
+        } else {
             count++;
             Node<T> currNode = head;
-            while(currNode.getLink() != head){
+            while (currNode.getLink() != head) {
                 count++;
                 currNode = currNode.getLink();
             }
@@ -29,12 +33,12 @@ public class SinglyLinkedCircularList<T> implements MyList<T>{
 
     public void insert(T data) {
         Node<T> newNode = new Node<>(data);
-        if(head == null){
+        if (head == null) {
             head = newNode;
             newNode.setLink(head);
-        }else{
+        } else {
             Node<T> currNode = head;
-            while(currNode.getLink() != head){
+            while (currNode.getLink() != head) {
                 currNode = currNode.getLink();
             }
             currNode.setLink(newNode);
@@ -59,7 +63,7 @@ public class SinglyLinkedCircularList<T> implements MyList<T>{
         throw new NoSuchElementException("Element not found in the list");
     }
 
-    public boolean delete(T data) {
+    public boolean delete(String data) {
         if (head == null) {
             return false; // List is empty, nothing to delete
         }
@@ -100,14 +104,65 @@ public class SinglyLinkedCircularList<T> implements MyList<T>{
     public int search(T data) {
         Node<T> currNode = head;
         int count = 0;
-        if(head == null){
+        if (head == null) {
             return -1;
-        }else{
-            while(currNode.getInfo() != data){
+        } else {
+            while (!currNode.getInfo().equals(data)) {
                 count++;
                 currNode = currNode.getLink();
+                if (currNode == head) {
+                    return -1; // Element not found
+                }
             }
             return count;
         }
+    }
+
+    public T getFirstByPriority(int priority) {
+        Node<T> currNode = head;
+        if (head == null) {
+            return null; // List is empty
+        } else {
+            do {
+                TodoItem item = (TodoItem) currNode.getInfo();
+                if (item.getPriority() == priority) {
+                    return currNode.getInfo();
+                }
+                currNode = currNode.getLink();
+            } while (currNode != head);
+            return null; // No item with the specified priority found
+        }
+    }
+
+    public void rotateToNext(int priority) {
+        Node<T> currNode = head;
+        Node<T> prevNode = null;
+
+        if (head == null) {
+            return; // List is empty, nothing to rotate
+        }
+
+        do {
+            TodoItem item = (TodoItem) currNode.getInfo();
+            if (item.getPriority() == priority) {
+                if (prevNode == null) {
+                    // If it's the head node, update the head
+                    head = head.getLink();
+                } else {
+                    // If it's not the head node, rotate by updating the previous node's link
+                    prevNode.setLink(currNode.getLink());
+                }
+                // Move the current node to the end
+                Node<T> lastNode = head;
+                while (lastNode.getLink() != head) {
+                    lastNode = lastNode.getLink();
+                }
+                lastNode.setLink(currNode);
+                currNode.setLink(head);
+                break;
+            }
+            prevNode = currNode;
+            currNode = currNode.getLink();
+        } while (currNode != head);
     }
 }

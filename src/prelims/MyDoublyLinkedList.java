@@ -109,4 +109,19 @@ public class MyDoublyLinkedList<T> implements MyList<T> {
         }
         return count;
     }
+    public T getElementAtIndex(int index) throws IndexOutOfBoundsException {
+        if (index < 0 || index >= getSize()) {
+            throw new IndexOutOfBoundsException("Index is out of bounds");
+        }
+
+        DLNode<T> currNode = head;
+        for (int i = 0; i < index; i++) {
+            currNode = currNode.getNextNode();
+        }
+
+        return currNode.getInfo();
+    }
+    public DLNode<T> getTail() {
+        return tail;
+    }
 }
